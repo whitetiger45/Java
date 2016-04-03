@@ -19,6 +19,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     Button btnSub;
     Button btnMult;
     Button btnDiv;
+    Button btnClear;
 
     TextView tvResult;
 
@@ -38,6 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnSub = (Button) findViewById(R.id.btnSub);
         btnMult = (Button) findViewById(R.id.btnMult);
         btnDiv = (Button) findViewById(R.id.btnDiv);
+        btnClear = (Button) findViewById(R.id.btnClear);
 
         tvResult = (TextView) findViewById(R.id.tvResult);
 
@@ -46,6 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         btnSub.setOnClickListener(this);
         btnMult.setOnClickListener(this);
         btnDiv.setOnClickListener(this);
+        btnClear.setOnClickListener(this);
 
     }
 
@@ -56,11 +59,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         float num2 = 0;
         float result = 0;
 
-        // check if the fields are empty
-        if (TextUtils.isEmpty(etNum1.getText().toString())
-                || TextUtils.isEmpty(etNum2.getText().toString())) {
+        // if clear button is clicked, do this stuff
+        if(v.getId() == R.id.btnClear) {
+            if (!(TextUtils.isEmpty(etNum1.getText().toString())))
+                etNum1.setText("");
+
+            if (!(TextUtils.isEmpty(etNum2.getText().toString())))
+                etNum2.setText("");
+
+            if (!(TextUtils.isEmpty(tvResult.getText().toString())))
+                tvResult.setText("");
+
             return;
         }
+            if(TextUtils.isEmpty(etNum1.getText().toString()) || TextUtils.isEmpty(etNum2.getText().toString()))
+            return;
 
         // read EditText and fill variables with numbers
         num1 = Float.parseFloat(etNum1.getText().toString());
@@ -90,6 +103,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         // form the output line
-        tvResult.setText(num1 + " " + oper + " " + num2 + " = " + result);
+        if(v.getId() != R.id.btnClear)
+            tvResult.setText(num1 + " " + oper + " " + num2 + " = " + result);
     }
 }
